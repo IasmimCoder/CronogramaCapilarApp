@@ -20,4 +20,6 @@ public enum SaudeDoCabelo {
     public String getNome() {
         return nome;
     }
+
+   
 }

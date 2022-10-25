@@ -1,24 +1,30 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 import models.Cabelo;
 import models.Cronograma;
+import models.enums.EspessuraDosFios;
+import models.enums.SaudeDoCabelo;
+import models.enums.TipoDeCabelo;
+import models.enums.TipoDeTratamento;
+import view.Forms;
 
-public class Main{
+public class Main {
     public static void main(String[] args) {
-        Scanner leitor = new Scanner(System.in);
+    
+        Forms formulario = new Forms();
+
+        formulario.iniciarTituloDoPrograma();
+        formulario.iniciarApresentacao();
+        Cabelo usuario = formulario.inserirDadosDeCabelo();
+
         
-
-        System.out.println("FAÇA SEU CRONOGRAMA CAPILAR");
+        Cronograma cronograma = new Cronograma(usuario);
         
-        Cronograma cronograma = new Cronograma();
-
-        cronograma.iniciarCronograma();
-
-        System.out.println(cronograma);
-
-
-
-
-
+        cronograma.iniciarCronogramaDefault();
+        
+        formulario.mostrarCronograma(cronograma.getCronograma(), "SEU CRONOGRAMA CAPILAR");
     }
 }
