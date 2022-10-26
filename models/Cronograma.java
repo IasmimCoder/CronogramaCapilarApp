@@ -29,8 +29,6 @@ public class Cronograma {
             this.defaultReconstrucao();
         }
         this.refinarCronograma();
-        // System.out.println(cronograma.get("Semana1"));
-
     }
 
     public Cabelo getCabelo() {
@@ -114,6 +112,11 @@ public class Cronograma {
                         TipoDeTratamento.HIDRATACAO))));
     }
 
+    /*Caso o cabelo do usuário seja cacheado ou crespo, este terá uma maior necessidade de nutrições.
+     * Assim, a partir deste método, identificamos se o usuario tem esta necessidade ou não.
+     * Caso sim, substituimos uma das hidratações e por uma nutrição com o método porMaisUmaNutricao().
+     * Entretanto, esta substituição não deve ser feita aleatoriamente, pois comprometeria a qualidade
+     * do cronograma. Desta forma, é chamado o método findSemanaParaAlteracao().*/
     private void refinarCronograma() {
         if (this.cabelo.getTipoDeCabelo() == TipoDeCabelo.CACHEADO ||
                 this.cabelo.getTipoDeCabelo() == TipoDeCabelo.CRESPO) {
@@ -122,6 +125,9 @@ public class Cronograma {
         }
     }
 
+    /*Identifica qual semana possui duas hidratações. Se houver mais de uma neste padrão, retorna a primeira.
+     * Caso não haja, retorna -1. 
+     */
     private int findSemanaParaAlteracao() {
         int semanaAlteradaIndex = 0;
         for (int i = 0; i < this.cronograma.size(); i++) {
@@ -139,9 +145,7 @@ public class Cronograma {
     }
 
     private void porMaisUmaNutricao(int semanaIndex) {
-        // INDEX
-        int primeiroIndex = 0;
-        int ultimoIndex = 2;
+        
 
         // Limpar a semana para redefinir
         this.cronograma.get(semanaIndex).clear();
@@ -152,6 +156,19 @@ public class Cronograma {
                 TipoDeTratamento.HIDRATACAO,
                 TipoDeTratamento.NUTRICAO));
 
+        verificarTratamentos(semanaIndex);
+    }
+
+    /*Verifica se há algum tratamento sucessivamente iguais entre a semana escolhida 
+    para alteração e sua antecessora ou sucessora.
+    * Caso sim, na semana antessora o último tratamento é invertido com o segundo. 
+    * Na semana sucessora, o primeiro tratamento é invertido com o segundo.*/
+    private void verificarTratamentos(int semanaIndex){
+        // INDEX
+        int primeiroIndex = 0;
+        int ultimoIndex = 2;
+
+        //altera a semana anterior
         if (semanaIndex > 0) {
             if (this.cronograma.get(semanaIndex).get(primeiroIndex) == this.cronograma
                     .get(semanaIndex - 1).get(ultimoIndex)) {
@@ -160,6 +177,7 @@ public class Cronograma {
             }
         }
 
+        // altera a próxima semana
         if (semanaIndex < 3) {
             if (this.cronograma.get(semanaIndex).get(ultimoIndex) == this.cronograma
                     .get(semanaIndex + 1).get(primeiroIndex)) {
@@ -168,5 +186,4 @@ public class Cronograma {
             }
         }
     }
-
 }

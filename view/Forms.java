@@ -39,8 +39,8 @@ public class Forms {
         System.out.println("\n\n");
 
     }
+
     public Cabelo inserirDadosDeCabelo() {
-        ;
         
         // Escolhe a saude
         int indexSaude = this.inserirSaude(); // apresenta as opções
@@ -81,6 +81,52 @@ public class Forms {
         return newMatrizFormat;
     }
 
+    private void setLinhaCabecalho(int number) {
+        String linha = "";
+        for (int i = 0; i < number; i++) {
+            linha += "-";
+        }
+        this.linhaCabecalho = linha;
+    }
+
+    private void mostrarTitulo(String titulo) {
+        System.out.println(linhaCabecalho);
+        System.out.println(this.centralizarString(titulo));
+        System.out.println(linhaCabecalho);
+    }
+
+    private String centralizarString(String string) {
+        String espacamento = "";
+        for (int i = 0; i < (linhaCabecalho.length()/2 - string.length()/2); i++) {
+            espacamento += " ";
+        }
+        return espacamento + string;
+    }
+
+    private int inserirSaude() {
+        System.out.println("\nInforme a saúde do seu cabelo: \n");
+        
+        for (SaudeDoCabelo s:  SaudeDoCabelo.values()){
+                System.out.printf("[%d] %s\n", s.getTipo(), s.getNome());
+        }
+        
+        System.out.print("Sua resposta: ");
+        int saudeIndex = Integer.parseInt(leitor.nextLine());
+        return saudeIndex;
+    }
+
+    private int inserirTipoDeCabelo() {
+        System.out.println("\nInforme o seu tipo cabelo: \n");
+        
+        for (TipoDeCabelo c: TipoDeCabelo.values()){
+            System.out.printf("[%d] %s\n", c.getTipo(), c.getNome());
+        }
+
+        System.out.print("Sua resposta: ");
+        int tipoCabeloIndex = Integer.parseInt(leitor.nextLine());
+        return tipoCabeloIndex;
+    }
+
     private void criacaoDeBorda(ArrayList<ArrayList<String>> cronograma) {
 
         int totalEspaco = 0;
@@ -91,47 +137,7 @@ public class Forms {
         this.setLinhaCabecalho(totalEspaco);
     }
 
-
-    private int inserirSaude() {
-        System.out.println("\nInforme a saúde do seu cabelo: \n");
-        System.out.println("[1] SAUDÁVEL\n[2] POUCO DANIFICADO\n[3] MUITO DANIFICADO");
-        System.out.print("Sua resposta:");
-        int saudeIndex = Integer.parseInt(leitor.nextLine());
-        return saudeIndex;
-    }
-
-    private int inserirTipoDeCabelo() {
-        System.out.println("\nInforme o seu tipo cabelo: \n");
-        System.out.println("[1] LISO\n[2] ONDULADO\n[3] CACHEADO\n[4] CRESPO");
-        System.out.print("Sua resposta:");
-        int tipoCabeloIndex = Integer.parseInt(leitor.nextLine());
-        return tipoCabeloIndex;
-    }
-
-    private void setLinhaCabecalho(int number) {
-        String linha = "";
-        for (int i = 0; i < number; i++) {
-            linha += "-";
-        }
-        this.linhaCabecalho = linha;
-    }
-
-    private String centralizarString(String string) {
-        String stringCentralizada = "";
-        for (int i = 0; i < (linhaCabecalho.length()/2 - string.length()/2); i++) {
-            stringCentralizada += " ";
-        }
-        return stringCentralizada + string;
-    }
-
     private String formatedString(String text) {
         return String.format(" %-15.15s ", text);
     }
-
-    private void mostrarTitulo(String titulo) {
-        System.out.println(linhaCabecalho);
-        System.out.println(this.centralizarString(titulo));
-        System.out.println(linhaCabecalho);
-    }
-
 }

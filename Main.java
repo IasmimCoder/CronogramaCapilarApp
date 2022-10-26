@@ -13,7 +13,13 @@ import view.Forms;
 
 public class Main {
     public static void main(String[] args) {
-    
+        // Scanner leitor = new Scanner(System.in);
+        // SaudeDoCabelo saude;
+
+        // for (SaudeDoCabelo s:  SaudeDoCabelo.values()){
+        //     System.out.println(s.getNome());
+        // }
+
         Forms formulario = new Forms();
 
         formulario.iniciarTituloDoPrograma();
@@ -22,7 +28,6 @@ public class Main {
 
         
         Cronograma cronograma = new Cronograma(usuario);
-        
         cronograma.iniciarCronogramaDefault();
         
         formulario.mostrarCronograma(cronograma.getCronograma(), "SEU CRONOGRAMA CAPILAR");
